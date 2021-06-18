@@ -1,14 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
              xmlns:local="clr-namespace:BeanGrinder"
-             x:Class="BeanGrinder.MainPage">
+             x:Class="BeanGrinder.MainPage"
+			 Title ="Bean Grinder">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+	<NavigationPage.TitleView>
+		<!--<Image Source="https://images.evetech.net/alliances/99005338/logo?size=128" Aspect="AspectFit"/>-->
+		<Label Text="Bean Grinder" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+	</NavigationPage.TitleView>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem
+                 IconImageSource="directoryServices.png"
+                 Order="Primary"
+                 Priority="0" />
+	</ContentPage.ToolbarItems>
+	
+	<ContentPage.Content>
+		<StackLayout Padding="10">
+			<swipeCardView:SwipeCardView
+                ItemsSource="{Binding Beans}"
+                SwipedCommand="{Binding SwipedCommand}"
+                LoopCards="True"
+				BackCardScale="1.0"
+				SupportedSwipeDirections="Left, Right"
+				SupportedDraggingDirections="Left, Right"
+                VerticalOptions="FillAndExpand">
+				<swipeCardView:SwipeCardView.ItemTemplate>
+					<DataTemplate>
+						<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+							<Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="Fill">
+								<AbsoluteLayout>
+									<Image Source="{Binding Portrait}" Aspect="AspectFill" AbsoluteLayout.LayoutBounds=".5,0.5,1,1" AbsoluteLayout.LayoutFlags="All" />
+									<Frame x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional" Rotation="-20" Opacity="0">
+										<Label x:Name="LikeText" Text="LIKE" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+									</Frame>
+									<Frame x:Name="NopeFrame" BorderColor="#FF6A4F" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.9,.1, 150, 50"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="20" Opacity="0">
+										<Label Text="NOPE" TextColor="#FF6A4F" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+									</Frame>
+									<Image Source="securitystatus.png" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.9,0.8, 32, 32" AbsoluteLayout.LayoutFlags="PositionProportional" />
+									<Label Text="{Binding SecStat}" FontSize="Small" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds="1.0,0.8, 30, 25" AbsoluteLayout.LayoutFlags="PositionProportional" />
+									<Image Source="{Binding CorpLogo}" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="1.0,1.0, 64, 64" AbsoluteLayout.LayoutFlags="PositionProportional" />
+									<Label FontSize="Large" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds="0.1,0.95, 250, 50" AbsoluteLayout.LayoutFlags="PositionProportional">
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="{Binding name}"></Span>
+												<!--<Span Text=", "></Span>
+												<Span Text="{Binding Age}"></Span>-->
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+									<Label Text="{Binding Age}" FontSize="Large" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds="0.1,1.0, 250, 30" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+								</AbsoluteLayout>
+							</Frame>
+						</StackLayout>
+					</DataTemplate>
+				</swipeCardView:SwipeCardView.ItemTemplate>
+			</swipeCardView:SwipeCardView>
 
+			<Label Text="{Binding Message}" HorizontalOptions="CenterAndExpand" />
+			
+			<StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 10, 20" Spacing="30">
+				<StackLayout>
+					<Button x:Name="nopeButton" Image="like.png" Clicked="OnDislikeClicked" RotationX="180" WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
+				</StackLayout>
+				<StackLayout VerticalOptions="Center">
+					<Button x:Name="infoButton" Image="info.png" Clicked="OnInfoButtonClicked" WidthRequest="50" HeightRequest="50" CornerRadius="25" BackgroundColor="White" Scale="1"></Button>
+				</StackLayout>
+				<StackLayout>
+					<Button x:Name="likeButton" Image="like.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="30" BackgroundColor="White" Scale="1"></Button>
+				</StackLayout>
+			</StackLayout>
+		</StackLayout>
+	</ContentPage.Content>
 </ContentPage>

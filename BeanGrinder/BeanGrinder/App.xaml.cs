@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,12 +14,14 @@ namespace BeanGrinder
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage( new MainPage() );
+            //MainPage = new MainPage();
         }
 
         protected override void OnStart()
         {
             // Handle when your app starts
+            //MainPage.BindingContext as PageViewModel;
         }
 
         protected override void OnSleep()
